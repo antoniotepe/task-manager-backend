@@ -8,8 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
-      imports: [ConfigService],
-      inject: [ConfigService],
+      imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         const useExternalUrl = configService.get('DATABASE_URL');
         if (useExternalUrl) {
@@ -38,6 +37,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           };
         }
       },
+      inject: [ConfigService],
     }),
     // ... otros módulos
   ],
