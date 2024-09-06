@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TasksModule } from './tasks/tasks.module';
-import { Task } from './tasks/task.entity';
 
 @Module({
   imports: [
@@ -11,13 +10,12 @@ import { Task } from './tasks/task.entity';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: +configService.get<number>('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_DATABASE'),
-        entities: ["dist/**/*.entity{.ts,.js}"],
-        synchronize: false, // Siempre false en producción
+        url: configService.get<string>('DATABASE_URL'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: true, // Cuidado con esto en producción
+        ssl: {
+          rejectUnauthorized: false
+        }
       }),
       inject: [ConfigService],
     }),
