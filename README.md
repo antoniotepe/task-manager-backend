@@ -83,3 +83,10 @@ Las contribuciones son bienvenidas. Por favor, abre un issue primero para discut
 ## Licencia
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
